@@ -9,7 +9,7 @@
             [cljs-coop.state :as state]
             [cljs-coop.compiler :as compiler]))
 
-(dev/init)
+; (dev/init)
 
 
 ;;from Mike Fikes https://stackoverflow.com/a/49848352
