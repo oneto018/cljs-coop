@@ -1,0 +1,25 @@
+{
+  "name": "cljs-coop",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "rm -rf assets/ && shadow-cljs watch app"
+  },
+  "author": "",
+  "license": "EPL",
+  "dependencies": {
+    "bluebird": "^3.5.3",
+    "codemirror": "^5.43.0",
+    "load-js": "^3.0.3",
+    "loaderjs": "^1.0.0",
+    "loadjs": "^3.5.5",
+    "react": "^16.8.2",
+    "react-codemirror2": "^5.1.0",
+    "react-dom": "^16.8.2",
+    "react-gesture": "0.0.5",
+    "react-is": "^16.8.2",
+    "react-spring": "^8.0.7"
+  }
+}

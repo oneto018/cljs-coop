@@ -1,0 +1,1 @@
+{:optimizations :simple, :parallel-build true, :main hello.core, :output-to "out/main.js", :output-dir "out", :aot-cache true}
