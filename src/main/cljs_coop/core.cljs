@@ -10,7 +10,9 @@
             [cljs-coop.compiler :as compiler]
             [cljs-coop.iframe :as ifr]))
 
-; (dev/init)
+(when js/goog.DEBUG
+  (dev/init))
+
 
 
 ;;from Mike Fikes https://stackoverflow.com/a/49848352
@@ -48,9 +50,8 @@
     [:div
      [preview {:title "code"} code]
      [preview {:title "result"} (state/pprint-raw result)]
-     
      [:button {:on-click #(dispatcher {:type :code-compile :payload code})} "compile2"]
-     [editor/editor {:content "(+ 1 1)" :on-change #(dispatcher {:type :update-code :payload %})}]
+     [editor/editor {:content code :on-change #(dispatcher {:type :update-code :payload %})}]
      [ifr/iframe-component {:code code-to-compile :html "<div id='app'></div>" :load-fn compiler/load-fn :dispatcher dispatcher}]]))
 
 

@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "rm -rf assets/ && shadow-cljs watch app"
+    "dev": "rm -rf assets/ && shadow-cljs watch app",
+    "build": "rm -rf assets/ && shadow-cljs release app"
   },
   "author": "",
   "license": "EPL",

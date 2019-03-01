@@ -1,9 +1,29 @@
 (ns cljs-coop.state
   (:require [cljs.pprint :refer [pprint]]
             ["react" :rename {useReducer use-reducer}]
-            [goog.object :as gobj]))
+            [goog.object :as gobj]
+            [goog.string :as st]))
 
-(def initial-state {:code "(+ 1 1)" :code-to-compile nil})
+(def default-code
+"
+(-> js/document
+    (.-body)
+    (.-innerHTML)
+    (set! \" <h1>Hello  world</h1> \"))")
+
+(defn get-hash-value! []
+  (let [hash (gobj/getValueByKeys js/window #js["location" "hash"])]
+    (when hash 
+      (.replace hash "#" ""))))
+
+(defn get-code-from-url []
+  (let [hash-value (get-hash-value!)]
+    (when (not= "" hash-value) (js/decodeURIComponent hash-value))))
+
+(defn get-starting-code []
+  (or (get-code-from-url) default-code))
+
+(def initial-state {:code (get-starting-code) :code-to-compile (get-starting-code)})
 
 (def log (.-log js/console))
 

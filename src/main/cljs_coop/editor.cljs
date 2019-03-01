@@ -1,5 +1,5 @@
 (ns cljs-coop.editor
-  ( :require ["react" :rename {useState use-state useEffect use-effect useRef use-ref}]
+  (:require ["react" :rename {useState use-state useEffect use-effect useRef use-ref}]
             ["load-js" :as load-js]
             [hx.react :as hx]
             [cljs-coop.load :as ld]
@@ -23,17 +23,19 @@
                            :styleActiveLine true
                            :lineNumbers true
                            :lineWrapping true})]
-         (.on instance "change" (fn [_editor] 
-                               (on-change (.getValue _editor))))
+         (.on instance "change" (fn [_editor]
+                                  (on-change (.getValue _editor))
+                                  (gobj/set js/location "hash"
+                                            (js/encodeURIComponent (.getValue _editor)))))
          (js/parinferCodeMirror.init instance "smart")
          (reset! inst instance))
        #())
-     [])
+     #js[])
     (use-effect
      (fn [] (let [_editor @inst]
               (when _editor
                 (do (.setValue @inst content)))
-              #())) [content,editor-ref])
+              #())) [])
     [:div
      [:h1 "codemirror"]
      [:textarea {:ref editor-ref :placeholder "write code here"}]]))
