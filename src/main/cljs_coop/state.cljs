@@ -3,7 +3,7 @@
             ["react" :rename {useReducer use-reducer}]
             [goog.object :as gobj]))
 
-(def initial-state {:code "(+ 1 1)"})
+(def initial-state {:code "(+ 1 1)" :code-to-compile nil})
 
 (def log (.-log js/console))
 
@@ -15,6 +15,8 @@
 (defn update-code [state _ code]
   (assoc state :code code))
 
+(defn code-compile [state _ code]
+  (assoc state :code-to-compile code))
 
 (defn update-result [state _ result]
   (assoc state :result  result))
@@ -24,7 +26,8 @@
       state))
 
 (def mappings {:update-code update-code
-               :update-result update-result})
+               :update-result update-result
+               :code-compile code-compile})
 
 (defn reducer [state {:keys [type payload]}]
   (let [handler (get mappings type)]

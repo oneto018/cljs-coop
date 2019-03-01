@@ -15,6 +15,7 @@
         eval-str (.-j_eval_str ns-core)
         empty-state (.-j_empty_state ns-core)
         state (empty-state)]
+    (log "compiler options"  (into {} {:eval js-eval :source-map true :verbose true :load load-fn}))
     (eval-str state code "code1" {:eval js-eval :source-map true :verbose true :load load-fn} cb)))
 
 (defn get-ns-var [ns-str]
@@ -29,7 +30,7 @@
 (defn compile-and-put-state [code dispatcher prev-result]
   (clear-namespaces! prev-result)
   (log "compilig code" code)
-  (compile-simple code  #(dispatcher {:type :update-result :payload %})))
+  (js/hello.core.compile_simple code "code" load-fn  #(dispatcher {:type :update-result :payload %})))
 
 
 (defn compile-simple-promise [code]

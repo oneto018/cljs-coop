@@ -8,7 +8,9 @@
 (defn use-resources [resources]
   (let [[loaded set-loaded!] (use-state false)]
     (use-effect
-     (fn [] (.then (loader/load (clj->js resources)) #(set-loaded! true)) #(println "done"))
+     (fn [] 
+       (.then (loader/load (clj->js resources)) #(set-loaded! true)) 
+       #(println "done"))
      [])
     loaded))
 

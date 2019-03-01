@@ -1,4 +1,4 @@
-// Compiled by ClojureScript 1.10.516 {}
+// Compiled by ClojureScript 1.10.516 {:elide-asserts true}
 goog.provide('cljs.source_map.base64_vlq');
 goog.require('cljs.core');
 goog.require('clojure.string');
@@ -27,20 +27,20 @@ return shifted;
 cljs.source_map.base64_vlq.encode_val = (function cljs$source_map$base64_vlq$encode_val(n){
 var sb = (new goog.string.StringBuffer());
 var vlq = cljs.source_map.base64_vlq.to_vlq_signed.call(null,n);
-var digit_2433 = (vlq & cljs.source_map.base64_vlq.vlq_base_mask);
-var vlq_2434__$1 = (vlq >>> (5));
+var digit_3696 = (vlq & cljs.source_map.base64_vlq.vlq_base_mask);
+var vlq_3697__$1 = (vlq >>> (5));
 while(true){
-if((vlq_2434__$1 > (0))){
-var digit_2435__$1 = (digit_2433 | cljs.source_map.base64_vlq.vlq_continuation_bit);
-sb.append(cljs.source_map.base64.encode.call(null,digit_2435__$1));
+if((vlq_3697__$1 > (0))){
+var digit_3698__$1 = (digit_3696 | cljs.source_map.base64_vlq.vlq_continuation_bit);
+sb.append(cljs.source_map.base64.encode.call(null,digit_3698__$1));
 
-var G__2436 = (vlq_2434__$1 & cljs.source_map.base64_vlq.vlq_base_mask);
-var G__2437 = (vlq_2434__$1 >>> (5));
-digit_2433 = G__2436;
-vlq_2434__$1 = G__2437;
+var G__3699 = (vlq_3697__$1 & cljs.source_map.base64_vlq.vlq_base_mask);
+var G__3700 = (vlq_3697__$1 >>> (5));
+digit_3696 = G__3699;
+vlq_3697__$1 = G__3700;
 continue;
 } else {
-sb.append(cljs.source_map.base64.encode.call(null,digit_2433));
+sb.append(cljs.source_map.base64.encode.call(null,digit_3696));
 }
 break;
 }
@@ -68,12 +68,12 @@ var digit__$1 = (digit & cljs.source_map.base64_vlq.vlq_base_mask);
 var result__$1 = (result + (digit__$1 << shift));
 var shift__$1 = (shift + (5));
 if(continuation_QMARK_){
-var G__2438 = i__$1;
-var G__2439 = result__$1;
-var G__2440 = shift__$1;
-i = G__2438;
-result = G__2439;
-shift = G__2440;
+var G__3704 = i__$1;
+var G__3705 = result__$1;
+var G__3706 = shift__$1;
+i = G__3704;
+result = G__3705;
+shift = G__3706;
 continue;
 } else {
 return (new cljs.core.LazySeq(null,((function (i,result,shift,i__$1,continuation_QMARK_,digit__$1,result__$1,shift__$1,digit,l){

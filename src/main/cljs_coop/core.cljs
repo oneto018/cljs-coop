@@ -7,7 +7,8 @@
             [goog.object :as gobj]
             [cljs-coop.devtools :as dev]
             [cljs-coop.state :as state]
-            [cljs-coop.compiler :as compiler]))
+            [cljs-coop.compiler :as compiler]
+            [cljs-coop.iframe :as ifr]))
 
 ; (dev/init)
 
@@ -33,7 +34,7 @@
 (hx/defnc preview [{:keys [children title]}]
   [react/Fragment
    (when title [:h5 title])
-   [:pre (state/pprint-raw children)]])
+   [:pre (js/JSON.stringify (clj->js children) nil 2)]])
 
 (hx/defnc test-component []
   [:div
@@ -42,13 +43,15 @@
 (hx/defnc my-component []
   (let [[state dispatcher] (state/use-state-reducer)
         result (get state :result)
-        code (get state :code)]
+        code (get state :code)
+        code-to-compile (get state :code-to-compile)]
     [:div
      [preview {:title "code"} code]
      [preview {:title "result"} (state/pprint-raw result)]
-    
-     [:button {:on-click #(compiler/compile-and-put-state code dispatcher result)} "compile2"]
-     [editor/editor {:content "(+ 1 1)" :on-change #(dispatcher {:type :update-code :payload %})}]]))
+     
+     [:button {:on-click #(dispatcher {:type :code-compile :payload code})} "compile2"]
+     [editor/editor {:content "(+ 1 1)" :on-change #(dispatcher {:type :update-code :payload %})}]
+     [ifr/iframe-component {:code code-to-compile :html "<div id='app'></div>" :load-fn compiler/load-fn :dispatcher dispatcher}]]))
 
 
 
