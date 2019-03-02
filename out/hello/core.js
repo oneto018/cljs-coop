@@ -6,15 +6,19 @@ goog.require('clojure.data');
 hello.core.eval_t = (function hello$core$eval_t(src,ns_name){
 var state = cljs.js.empty_state.call(null);
 return cljs.js.eval_str.call(null,state,src,ns_name,new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null,"eval","eval",-1103567905),cljs.js.js_eval,new cljs.core.Keyword(null,"source-map","source-map",1706252311),true,new cljs.core.Keyword(null,"verbose","verbose",1694226060),true,new cljs.core.Keyword(null,"ns","ns",441598760),"cljs.core"], null),((function (state){
-return (function (p1__914_SHARP_){
-return console.log(cljs.core.clj__GT_js.call(null,p1__914_SHARP_));
+return (function (p1__915_SHARP_){
+return console.log(cljs.core.clj__GT_js.call(null,p1__915_SHARP_));
 });})(state))
 );
 });
 goog.exportSymbol('hello.core.eval_t', hello.core.eval_t);
 hello.core.compile_simple = (function hello$core$compile_simple(src,name,load_fn,cb){
 var state = cljs.js.empty_state.call(null);
-return cljs.js.eval_str.call(null,state,src,name,new cljs.core.PersistentArrayMap(null, 6, [new cljs.core.Keyword(null,"eval","eval",-1103567905),cljs.js.js_eval,new cljs.core.Keyword(null,"static-fns","static-fns",-501950748),true,new cljs.core.Keyword(null,"fn-invoke-direct","fn-invoke-direct",-1537311210),true,new cljs.core.Keyword(null,"source-map","source-map",1706252311),true,new cljs.core.Keyword(null,"verbose","verbose",1694226060),true,new cljs.core.Keyword(null,"load","load",-1318641184),load_fn], null),cb);
+return cljs.js.eval_str.call(null,state,src,name,new cljs.core.PersistentArrayMap(null, 6, [new cljs.core.Keyword(null,"eval","eval",-1103567905),cljs.js.js_eval,new cljs.core.Keyword(null,"static-fns","static-fns",-501950748),true,new cljs.core.Keyword(null,"fn-invoke-direct","fn-invoke-direct",-1537311210),true,new cljs.core.Keyword(null,"source-map","source-map",1706252311),true,new cljs.core.Keyword(null,"verbose","verbose",1694226060),true,new cljs.core.Keyword(null,"load","load",-1318641184),load_fn], null),((function (state){
+return (function (p1__917_SHARP_){
+return cb.call(null,cljs.core.clj__GT_js.call(null,p1__917_SHARP_));
+});})(state))
+);
 });
 goog.exportSymbol('hello.core.compile_simple', hello.core.compile_simple);
 hello.core.j_eval_str = cljs.js.eval_str;

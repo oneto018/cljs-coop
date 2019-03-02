@@ -33,10 +33,13 @@
 
 (def log (.-log js/console))
 
-(hx/defnc preview [{:keys [children title]}]
+(hx/defnc debug [{:keys [children]}]
   [react/Fragment
-   (when title [:h5 title])
+   [:h5 "result"]
    [:pre children]])
+
+(defn json-pretty-print [data]
+  (js/JSON.stringify data nil 2))
 
 (defn share-code! [code]
   (gobj/set js/location "hash" code)
@@ -65,7 +68,7 @@
        [ifr/iframe-component {:code code-to-compile :html "<div id='app'></div>" :load-fn compiler/load-fn :dispatcher dispatcher}]]]
      [:div {:class-name "columns col-gapless"}
       [:div {:class-name "column col-8  debugger-container"}
-       [preview {:title "return value"} (state/pprint-raw result)]]]
+       [debug (json-pretty-print result)]]]
      ]))
 
 

@@ -21,6 +21,7 @@
     "react-dom": "^16.8.2",
     "react-gesture": "0.0.5",
     "react-is": "^16.8.2",
-    "react-spring": "^8.0.7"
+    "react-spring": "^8.0.7",
+    "systemjs": "^3.0.0"
   }
 }
