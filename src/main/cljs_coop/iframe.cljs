@@ -9,14 +9,14 @@
   (let [iframe (gobj/get iframe-ref "current")
         src (gobj/get iframe "src")
         document (gobj/getValueByKeys iframe #js["contentWindow" "document"])
-        body (gobj/get document "body")]
+        body #(gobj/get document "body")]
     (gobj/set iframe "src" src)
     (p/promise
      (fn [resolve reject]
        (gobj/set iframe
                  "onload"
                  (fn []
-                   (if body (gobj/set body "innerHtml" html)
+                   (if (body) (gobj/set (body) "innerHTML" html)
                        (js/console.warn "body null" iframe iframe-ref))
                    (resolve 1)))))))
 
@@ -26,11 +26,11 @@
     (gobj/getValueByKeys iframe #js["contentWindow" "hello" "core" "compile_simple"])))
 
 (hx/defnc iframe-component [{:keys [code html load-fn dispatcher]}]
-  (js/console.log "iframe-component updating1 " code)
+  ;(js/console.log "iframe-component updating1 " code)
   (let [iframe-ref (use-ref)]
     (use-effect 
      (fn []
-       (js/console.log "iframe-component updating")
+       ;(js/console.log "iframe-component updating")
        (async 
         (p/await (write-html-to-iframe! iframe-ref html))
         (js/console.log "iframe loaded" (get-compile-fn iframe-ref))

@@ -14,11 +14,27 @@
     <script src="https://unpkg.com/parinfer@3.12.0/parinfer.js"></script>
     <script src="https://unpkg.com/codemirror@5.44.0/mode/clojure/clojure.js"></script>
     <script src="https://unpkg.com/parinfer-codemirror@1.4.2/parinfer-codemirror.js"></script>
-    
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
+
     <style>
-    .CodeMirror {
-   
-    font-size: 16px;
+    
+    .code-mirror-container .CodeMirror {
+        font-size: 14px;
+        height: 450px;
+    }
+    .iframe-container iframe{
+        width: 100%;
+        height: 450px;
+        outline: 0;
+        border: 0;
+    }
+    .tool-bar{
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    .tool-bar button{
+        margin-right: 5px;
     }
     </style>
 </head>

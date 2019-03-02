@@ -7,12 +7,14 @@
 
 
 (defn get-ref [ref] (gobj/get ref "current"))
+(defn set-ref [ref v] (gobj/set ref "current" v))
 (defn get-editor [ref] (-> (.-current ref)
                            (.-CodeMirror)))
 
-(hx/defnc editor [{:keys [content on-change]}]
+(hx/defnc editor [{:keys [content on-change parinfer]}]
   (let [editor-ref (use-ref)
-        inst (atom nil)]
+        inst (atom nil)
+        instance-ref (use-ref)]
     (use-effect
      (fn []
        (let [instance (js/CodeMirror.fromTextArea
@@ -24,18 +26,24 @@
                            :lineNumbers true
                            :lineWrapping true})]
          (.on instance "change" (fn [_editor]
-                                  (on-change (.getValue _editor))
-                                  (gobj/set js/location "hash"
-                                            (js/encodeURIComponent (.getValue _editor)))))
+                                  (on-change (.getValue _editor))))
          (js/parinferCodeMirror.init instance "smart")
-         (reset! inst instance))
+         (reset! inst instance)
+         (set-ref instance-ref instance))
        #())
      #js[])
+    (use-effect 
+     (fn []
+       (let [inst (get-ref instance-ref)]
+         (if parinfer
+           (js/parinferCodeMirror.enable inst)
+           (js/parinferCodeMirror.disable inst)))
+       #())
+     #js[parinfer])
     (use-effect
      (fn [] (let [_editor @inst]
               (when _editor
                 (do (.setValue @inst content)))
               #())) [])
-    [:div
-     [:h1 "codemirror"]
+    [:div {:class "code-mirror-container"}
      [:textarea {:ref editor-ref :placeholder "write code here"}]]))

@@ -23,7 +23,7 @@
 (defn get-starting-code []
   (or (get-code-from-url) default-code))
 
-(def initial-state {:code (get-starting-code) :code-to-compile (get-starting-code)})
+(def initial-state {:code (get-starting-code) :code-to-compile (get-starting-code) :parinfer true})
 
 (def log (.-log js/console))
 
@@ -41,13 +41,17 @@
 (defn update-result [state _ result]
   (assoc state :result  result))
 
+(defn toggle-parinfer [state _ _]
+  (update state :parinfer not))
+
 (defn default-handler [state action-type payload]
   (do (log {:warning "no such action" :type action-type :payload (clj->js payload)})
       state))
 
 (def mappings {:update-code update-code
                :update-result update-result
-               :code-compile code-compile})
+               :code-compile code-compile
+               :toggle-parinfer toggle-parinfer})
 
 (defn reducer [state {:keys [type payload]}]
   (let [handler (get mappings type)]
