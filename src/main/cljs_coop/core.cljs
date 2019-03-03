@@ -8,7 +8,9 @@
             [cljs-coop.devtools :as dev]
             [cljs-coop.state :as state]
             [cljs-coop.compiler :as compiler]
-            [cljs-coop.iframe :as ifr]))
+            [cljs-coop.iframe :as ifr]
+            [cljs-coop.jar-load :as jar-load]))
+
 
 (when js/goog.DEBUG
   (dev/init))
@@ -53,10 +55,10 @@
         code-to-compile (get state :code-to-compile)]
     [:div {:class-name "container"}
      [:div {:class-name "tool-bar"}
-      [:button {:on-click #(dispatcher {:type :code-compile :payload code}) :class-name "btn btn-primary"} "compile"]
+      [:button {:on-click #(dispatcher {:type :code-compile :payload code }) :class-name "btn btn-primary"} "compile"]
       [:button {:on-click #(dispatcher {:type :toggle-parinfer}) :class-name "btn"} (if parinfer "disable parinfer" "enable-parinfer")]
       [:button {:class-name "btn btn-success" :on-click #(share-code! code)}
-       [:i {:class-name "icon icon-share"}] " share this code"]
+       [:i {:class-name "icon icon-share"}]   " share this code "]
       ]
      [:div {:class-name "columns col-gapless"}
       [:div {:class-name "column col-7"}

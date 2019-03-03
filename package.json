@@ -13,9 +13,12 @@
   "dependencies": {
     "bluebird": "^3.5.3",
     "codemirror": "^5.43.0",
+    "dexie": "^2.0.4",
     "load-js": "^3.0.3",
     "loaderjs": "^1.0.0",
     "loadjs": "^3.5.5",
+    "mvn-artifact-name-parser": "^4.0.0",
+    "mvn-artifact-url": "^4.0.0",
     "react": "^16.8.2",
     "react-codemirror2": "^5.1.0",
     "react-dom": "^16.8.2",

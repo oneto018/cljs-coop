@@ -6,6 +6,7 @@
 
 (def default-code
 "
+(ns example.core)
 (-> js/document
     (.-body)
     (.-innerHTML)

@@ -37,6 +37,56 @@
         margin-right: 5px;
     }
     </style>
+    <script>
+        //polyfill
+        if (!String.prototype.startsWith) {
+            Object.defineProperty(String.prototype, 'startsWith', {
+                value: function(search, pos) {
+                    pos = !pos || pos < 0 ? 0 : +pos;
+                    return this.substring(pos, pos + search.length) === search;
+                }
+            });
+        }
+
+        function getZipData(url,zip,promise){
+            promise = promise||Promise;
+            return new Promise(function(resolve,reject){
+                var data = [];
+                var rdr = new zip.HttpReader(url);
+                zip.createReader(rdr,function(reader){
+                    reader.getEntries(function(entries){
+                        var remaining = entries.length;
+                       
+                        if(! (remaining>0)){
+                            resolve(data);
+                            reader.close();
+                            return;
+                        }
+                        for (var index = 0; index < entries.length; index++) {
+                            var entry =  entries[index];
+                            entry.getData(new zip.TextWriter(),function(name){
+                                return function(text){
+                                    if(text && (!name.startsWith("META-INF"))){
+                                        data.push({name:name,content:text});
+                                    }
+                                    if(remaining>1){
+                                        remaining--;
+                                    } else {
+                                        console.log('remaining ',remaining);
+                                        reader.close();
+                                        resolve(data);
+                                    }
+                                }
+                            }(entry.filename));  
+                        }
+                    });
+                },function(err){
+                    reject(err);
+                })
+
+            });
+        }
+    </script>
 </head>
 <body>
     <div id="app-main">
@@ -45,6 +95,12 @@
     <div id="app">
 
     </div>
+    <script src="./zip/zip.js"></script>
+    <script src="./zip/zip-ext.js"></script>
+    <script>
+        zip.workerScriptsPath = 'zip/';
+
+    </script>
     <script src="assets/js/main.js"></script>
   
 </body>
